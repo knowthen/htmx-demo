@@ -16,31 +16,28 @@ const Layout = ({ children }: { children: any }) => {
           crossorigin="anonymous"
         ></script>
       </head>
-      <body>
+      <body hx-boost="true">
         <main class="container">{children}</main>
       </body>
     </html>
   );
 };
-let count = 0;
+
 const app = new Elysia()
   .use(html())
-  .put('/inc', () => {
-    return ++count;
-  })
-  .put('/dec', () => {
-    return --count;
-  })
   .get('/', () => {
     return (
       <Layout>
-        <button hx-put="/inc" hx-target="#count" hx-trigger="dblclick">
-          +
-        </button>
-        <span id="count">{count}</span>
-        <button hx-put="/dec" hx-target="#count">
-          -
-        </button>
+        <h1>Home</h1>
+        <a href="/about">About</a>
+      </Layout>
+    );
+  })
+  .get('/about', () => {
+    return (
+      <Layout>
+        <h1>About</h1>
+        <a href="/">Home</a>
       </Layout>
     );
   })
